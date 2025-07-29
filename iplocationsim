@@ -7,7 +7,15 @@ if [[ "$answer" == "Y" || "$answer" == "y" || "$answer" == "" ]]; then
     echo "Downloading main.py from GitHub..."
     curl -O https://raw.githubusercontent.com/YusufOruu/iplocationsim/main/main.py
 
-    echo "Installation complete. Running main.py..."
+    echo "Checking for required Python modules..."
+    if ! python3 -c "import colorama" &> /dev/null; then
+        echo "colorama module not found. Installing..."
+        pip3 install colorama
+    else
+        echo "colorama module already installed."
+    fi
+
+    echo "Running main.py..."
     python3 ./main.py
 else
     echo "Installation aborted."
